@@ -2,28 +2,21 @@ version: '3.3'
 
 services:
   db:
-    image: mysql:8
-    command: --default-authentication-plugin=mysql_native_password
+    build: .
     environment:
-       - MYSQL_ROOT_PASSWORD
+       - MYSQL_ROOT_PASSWORD=root
     volumes:
        - db-data:/var/lib/mysql
-    networks:
-       - rm
+    ports:
+       - 3306:3306
 
   pma:
       image: hauptmedia/phpmyadmin:latest
       environment:
-        - PMA_ABSOLUTE_URI
+        - PMA_ABSOLUTE_URI=http://localhost:8070/
         - SERVER_1_HOST=db
       ports:
         - 8070:80
-      networks:
-        - rm
-
-networks:
-  rm:
-    driver: overlay
 
 volumes:
   db-data:
