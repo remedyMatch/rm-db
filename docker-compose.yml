@@ -25,3 +25,5 @@ networks:
   rm:
     driver: overlay
 
+volumes:
+  db-data:
